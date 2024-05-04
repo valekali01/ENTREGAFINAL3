@@ -1,6 +1,6 @@
 {% extends 'bookings/base.html' %}
 
-{% block title %}Detalle de la cancha{% endblock %}
+{% block title %}Detalle de la Sala{% endblock %}
 
 {% block content %}
 <section class="py-5">
@@ -9,21 +9,21 @@
             <div class="col-lg-8 mx-auto">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        Detalle de la Cancha
+                        Detalle de la Sala
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">{{ GUSTAVOCERATI.nombre }}</h5>
-                        {% if GUSTAVOCERATI.disponible %}
+                        <h5 class="card-title">{{ VALEN.nombre }}</h5>
+                        {% if VALEN.disponible %}
                         <h6 class="card-subtitle mb-2">Disponibilidad: Disponible</h6>
                         {% else %}
                         <h6 class="card-subtitle mb-2">Disponibilidad: No Disponible</h6>
                         {% endif %}
-                        <p class="card-text">Capacidad: {{ GUSTAVOCERATI.capacidad }}</p>
-                        <p class="card-text">Descripción: {{ GUSTAVOCERATI.descripcion | default:"No proporcionado" }}</p>
+                        <p class="card-text">Capacidad: {{ VALEN.capacidad }}</p>
+                        <p class="card-text">Descripción: {{ VALEN.descripcion | default:"No proporcionado" }}</p>
                     </div>
                 </div>
                 <div class="mt-4">
-                    <h3>Reservas para esta Cancha</h3>
+                    <h3>Reservas de cancha</h3>
                     <table class="table">
                         <thead>
                             <tr>
@@ -35,7 +35,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for reserva in GUSTAVOCERATI.reservas.all %}
+                            {% for reserva in VALEN.reservas.all %}
                             <tr>
                                 <td>{{ reserva.nombre_de_usuario }}</td>
                                 <td>{{ reserva.fecha | date:"d/m/Y" }}</td>
@@ -45,7 +45,7 @@
                             </tr>
                             {% empty %}
                             <tr>
-                                <td colspan="5">No hay reservas para esta cancha.</td>
+                                <td colspan="5">No se reservo esta cancha.</td>
                             </tr>
                             {% endfor %}
                         </tbody>

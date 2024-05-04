@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Avatar, Sala
+from .models import Avatar, Sala, Reserva
 
 class UserEditForm(forms.ModelForm):
     class Meta:
@@ -13,7 +13,7 @@ class SalaSearchForm(forms.Form):
     )
     disponible = forms.BooleanField(required=False, label="Sólo salas disponibles")
     capacidad_minima = forms.IntegerField(required=False, label="Salas con capacidad mayor a:")
-    tipo_de_sala = forms.ChoiceField(choices=Sala.Tipo.choices)
+    tipo_de_cancha = forms.ChoiceField(choices=Sala.Tipo.choices)
 
 
 class AvatarCreateForm(forms.ModelForm):
@@ -42,18 +42,31 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
-        from django import forms
+
+from .models import Sala, Reserva
 from .models import Sala, Reserva
 
-class SalaForm(forms.ModelForm):
-    class Meta:
-        model = Sala
-        fields = '__all__'
+class ReservaSearchForm(forms.Form):
+    nombre = forms.CharField(
+        max_length=50, required=True, label="Ingresar nombre de la reserva"
+    )
+    disponible = forms.BooleanField(required=False, label="Sólo reservas disponibles")
+    capacidad_minima = forms.IntegerField(required=False, label="Reservas con capacidad mayor a:")
 
-class ReservaForm(forms.ModelForm):
+    CATEGORIA_CHOICES = [
+        ('BASQUET', 'Cancha de Basquet '),
+        ('FUTBOL', 'Cancha de Futbol'),
+        ('TENIS', 'Cancha de Tenis '),
+        ('SQUASH', 'Cancha de Squash'),
+    ]
+    
+    categoria_de_reserva = forms.ChoiceField(choices=CATEGORIA_CHOICES, label="Categoría de reserva")
+
+
+from django import forms
+from .models import Reserva
+
+class ReservaCreateForm(forms.ModelForm):
     class Meta:
         model = Reserva
-        fields = '__all__'
-
-
-
+        fields = ["nombre_de_usuario", "sala", "fecha", "hora_inicio", "hora_fin", "descripcion"]

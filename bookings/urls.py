@@ -17,11 +17,30 @@ from .views import (
     # Clase 25
     # ------------------------------------------------------------------------
     avatar_view,
-    reserva_list, 
-    reserva_detail, 
-    reserva_create, 
-    reserva_update, 
-    reserva_delete,
+
+    create_user,
+    home_view,
+    ReservaListView,
+    ReservaDetailView,
+    ReservaDeleteView,
+    ReservaUpdateView,
+    ReservaCreateView,
+    user_login_view,
+    user_logout_view,
+    UserUpdateView,
+    reserva_search_view,
+    # ------------------------------------------------------------------------
+    # Clase 25
+    # ------------------------------------------------------------------------
+    avatar_view,
+    about_view,         # Nueva vista de "Acerca de mí"
+         # Nueva vista de lista de blogs
+    PageDetailView,
+    BlogListView
+ 
+    
+    
+    
 )
 
 urlpatterns = [
@@ -40,11 +59,32 @@ urlpatterns = [
     # Clase 25
     # ------------------------------------------------------------------------
     path('avatar/add/', avatar_view, name='avatar_add'),
-    path('reservas/', reserva_list, name='reserva-list'),
-    path('reservas/<int:pk>/', reserva_detail, name='reserva-detail'),
-    path('reservas/create/', reserva_create, name='reserva-create'),
-    path('reservas/<int:pk>/update/', reserva_update, name='reserva-update'),
-    path('reservas/<int:pk>/delete/', reserva_delete, name='reserva-delete'),
+
+    path("", home_view, name="home"),
+    path('create_user/', create_user, name='create_user'),
+    path("reserva/list/", ReservaListView.as_view(), name="reserva-list"),
+    path("reserva/create/", ReservaCreateView.as_view(), name="reserva-create"),
+    path("reserva/<int:pk>/detail/", ReservaDetailView.as_view(), name="reserva-detail"),
+    path("reserva/<int:pk>/delete/", ReservaDeleteView.as_view(), name="reserva-delete"),
+    path("reserva/<int:pk>/update/", ReservaUpdateView.as_view(), name="reserva-update"),
+    path('reserva/buscar', reserva_search_view, name="reserva-buscar"),
+    path("login/", user_login_view, name="login"),
+    path("logout/", user_logout_view, name="logout"),
+    path('editar-perfil/', UserUpdateView.as_view(), name='editar-perfil'),
+    # ------------------------------------------------------------------------
+    # Clase 25
+    # ------------------------------------------------------------------------
+    path('avatar/add/', avatar_view, name='avatar_add'),
+    path("about/", about_view, name="about"),
+
+    # Blogs
+    
+
+    # Detalle de página
+    path("pages/<int:pk>/", PageDetailView.as_view(), name="page_detail"),
+    path("blogs/", BlogListView.as_view(), name="blog_list"),
+    
+
     
 ]
 
